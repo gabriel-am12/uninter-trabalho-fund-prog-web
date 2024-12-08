@@ -1,0 +1,504 @@
+<html>
+  <head>
+    <base href="." />
+    <title>Gabriel Augusto - Portfolio Uninter</title>
+    <style>
+      :root {
+        --primary: #2c3e50;
+        --secondary: #34495e;
+        --accent: #3498db;
+        --light: #ecf0f1;
+        --dark: #2c3e50;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background: var(--light);
+        color: var(--dark);
+        line-height: 1.6;
+      }
+
+      header {
+        background: var(--primary);
+        color: white;
+        padding: 2rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      @keyframes slide {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+
+      nav {
+        background: var(--secondary);
+        padding: 1rem;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      nav a:hover {
+        background: var(--accent);
+        transform: translateY(-2px);
+      }
+
+      main {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 2rem;
+      }
+
+      section {
+        margin-bottom: 4rem;
+        padding: 2rem;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        display: none;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.5s ease;
+      }
+
+      section.active {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .profile {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .profile-image {
+        width: 200px;
+        height: 200px;
+        margin: 0 auto 2rem;
+        position: relative;
+      }
+
+      .profile-image svg {
+        width: 100%;
+        height: 100%;
+        fill: var(--accent);
+        animation: float 3s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .education-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .education-card {
+        background: var(--light);
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .education-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .education-card h3 {
+        color: var(--primary);
+        font-size: 1.2rem;
+      }
+
+      .education-card p {
+        font-size: 1rem;
+        color: var(--secondary);
+      }
+
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .skill-card {
+        padding: 1.5rem;
+        background: var(--light);
+        border-radius: 8px;
+        text-align: center;
+        transition: transform 0.3s ease;
+      }
+
+      .skill-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .skill-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--accent);
+      }
+
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .project-card {
+        background: var(--light);
+        border-radius: 12px;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .project-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .project-image {
+        width: 100%;
+        height: 200px;
+        background: var(--secondary);
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        overflow: hidden;
+      }
+
+      .contact-form {
+        max-width: 600px;
+        margin: 2rem auto;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: var(--dark);
+        font-weight: 500;
+      }
+
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 0.8rem;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        transition: border-color 0.3s ease;
+        font-size: 1rem;
+      }
+
+      .form-group input:focus,
+      .form-group textarea:focus {
+        border-color: var(--accent);
+        outline: none;
+      }
+
+      button {
+        background: var(--accent);
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        width: 100%;
+      }
+
+      button:hover {
+        background: #2980b9;
+        transform: translateY(-2px);
+      }
+
+      .success-message {
+        display: none;
+        background: #2ecc71;
+        color: white;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-top: 1rem;
+        text-align: center;
+        animation: slideUp 0.5s ease;
+      }
+
+      @keyframes slideUp {
+        from {
+          transform: translateY(10px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      footer {
+        background: var(--primary);
+        color: white;
+        text-align: center;
+        padding: 2rem;
+        margin-top: 4rem;
+      }
+
+      /* Responsividade */
+      @media (max-width: 768px) {
+        nav ul {
+          flex-direction: column;
+          align-items: center;
+          gap: 1rem;
+        }
+
+        .skills-grid,
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <h1>Gabriel Augusto</h1>
+      <p>Desenvolvedor Full Stack</p>
+    </header>
+
+    <nav>
+      <ul>
+        <li><a onclick="showSection('sobre')">Sobre</a></li>
+        <li><a onclick="showSection('formacao')">Formação</a></li>
+        <li><a onclick="showSection('habilidades')">Habilidades</a></li>
+        <li><a onclick="showSection('projetos')">Projetos</a></li>
+        <li><a onclick="showSection('contato')">Contato</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <section id="sobre" class="active">
+        <div class="profile">
+          <div class="profile-image">
+            <svg viewBox="0 0 100 100">
+              <circle cx="50" cy="35" r="25" fill="currentColor" />
+              <rect x="20" y="70" width="60" height="30" fill="currentColor" />
+            </svg>
+          </div>
+          <h2>Sobre Mim</h2>
+          <p>
+            Olá! Sou um desenvolvedor Full Stack apaixonado por tecnologia e
+            inovação. Com experiência em desenvolvimento web, busco
+            constantemente aprender novas tecnologias e criar soluções que façam
+            a diferença.
+          </p>
+        </div>
+      </section>
+
+      <section id="formacao">
+        <h2>Formação Educacional</h2>
+        <div class="education-grid">
+          <div class="education-card">
+            <h3>Bacharelado em Ciência da Computação</h3>
+            <p>UFERSA</p>
+            <p>2020 - Atual</p>
+            <p>
+              Estudo de fundamentos da computação, algoritmos, estrutura de
+              dados e desenvolvimento de sistemas e etc.
+            </p>
+          </div>
+          <div class="education-card">
+            <h3>Técnologo em ADS(EAD)</h3>
+            <p>Uninter</p>
+            <p>2024 - Atual</p>
+            <p>
+              Formação em Análise e Desenvolvimento de Sistemas na modalidade
+              ensino a distância pela Uninter
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="habilidades">
+        <h2>Habilidades Técnicas</h2>
+        <div class="skills-grid">
+          <div class="skill-card">
+            <div class="skill-icon">🌐</div>
+            <h3>Frontend</h3>
+            <p>HTML5, CSS3, JavaScript</p>
+            <p>React, Vue.js, Angular</p>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">⚙️</div>
+            <h3>Backend</h3>
+            <p>Node.js, Python, Java</p>
+            <p>Express, Django, Spring</p>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">💾</div>
+            <h3>Banco de Dados</h3>
+            <p>MySQL, PostgreSQL</p>
+            <p>MongoDB, Redis</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="projetos">
+        <h2>Projetos em Destaque</h2>
+        <div class="projects-grid">
+          <a
+            href="https://github.com/gabriel-am12/fsw-financeai"
+            class="project-card"
+          >
+            <div class="project-image"></div>
+            <h3>Finance AI</h3>
+            <p>Gestão financeira pessoal, com possível auxílio de I.A</p>
+          </a>
+          <a
+            href="https://github.com/gabriel-am12/Text_QR_code_generator"
+            class="project-card"
+          >
+            <div class="project-image"></div>
+            <h3>Gerador de QR-Code</h3>
+            <p>Gera um QR-Code para um link fornecido.</p>
+          </a>
+          <a
+            href="https://github.com/gabriel-am12/TypeMap"
+            class="project-card"
+          >
+            <div class="project-image"></div>
+            <h3>TypeMap</h3>
+            <p>Prática de uso do Typescript e API do Google Maps</p>
+          </a>
+        </div>
+      </section>
+
+      <section id="contato">
+        <h2>Entre em Contato</h2>
+        <form id="contactForm" class="contact-form">
+          <div class="form-group">
+            <label for="name">Nome</label>
+            <input type="text" id="name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" required />
+          </div>
+          <div class="form-group">
+            <label for="message">Mensagem</label>
+            <textarea id="message" rows="5" required></textarea>
+          </div>
+          <button type="submit">Enviar Mensagem</button>
+          <div id="successMessage" class="success-message">
+            Mensagem enviada com sucesso!
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <p>© 2024 Gabriel Augusto - Todos os direitos reservados</p>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const contactForm = document.getElementById("contactForm");
+        const successMessage = document.getElementById("successMessage");
+
+        // Função para mostrar seções
+        window.showSection = function (sectionId) {
+          // Esconde todas as seções
+          document.querySelectorAll("section").forEach((section) => {
+            section.classList.remove("active");
+          });
+
+          // Mostra a seção selecionada
+          const selectedSection = document.getElementById(sectionId);
+          selectedSection.classList.add("active");
+
+          // Scroll suave até a seção
+          selectedSection.scrollIntoView({ behavior: "smooth" });
+        };
+
+        // Inicializa mostrando a seção "Sobre"
+        showSection("sobre");
+
+        // Manipulador do formulário de contato
+        contactForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          // Simulação de envio do formulário
+          successMessage.style.display = "block";
+          contactForm.reset();
+
+          // Esconde a mensagem de sucesso após 3 segundos
+          setTimeout(() => {
+            successMessage.style.display = "none";
+          }, 3000);
+        });
+
+        // Adiciona animação aos cards de projetos
+        const projectCards = document.querySelectorAll(".project-card");
+        projectCards.forEach((card) => {
+          card.addEventListener("mouseover", function () {
+            this.style.transform = "scale(1.03) translateY(-5px)";
+          });
+
+          card.addEventListener("mouseout", function () {
+            this.style.transform = "scale(1) translateY(0)";
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
